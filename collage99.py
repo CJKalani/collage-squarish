@@ -1,4 +1,4 @@
-path = "enter file path"
+path = "enter file path of jpeg folder"
 from PIL import Image
 import time
 import os
@@ -41,7 +41,7 @@ def coll(print_folder):
     for name in print_folder[0]:
         collage.paste(Image.open(name[0]), (name[3], name[4]))
     collage.show()
-    collage.save("coll"+str(int(time.time()))+".jpg",quality=50) 
+    collage.save("coll"+str(int(time.time()))+".jpg",quality=99) 
 
 
 def advanced_suite(repeats):
@@ -239,7 +239,7 @@ def draw(pix, orientation, sprawlingest, widest_tallest, params, min_side, area)
 ##        pix.remove(sprawlingest)
     if len(print_folder) == 0:
         print_folder.append(widest_tallest[aspect])
-        pix.remove(widest_tallest[aspect)
+        pix.remove(widest_tallest[aspect])
 
     while len(pix) > 0:
         next_pic = nextpic(pix, print_folder, min_side, border, orientation, aspect)
