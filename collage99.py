@@ -14,12 +14,12 @@ def main(repeats):
         and faff[0] in {"y", "Y"}
         and faff[1] in {"e", "E"}
     ):
-        return advanced_suite(repeats)
+        return semi_advanced_suite(repeats)
     if faff == "":
         pix = getpix()[0]
         printmostcompact(len(pix)**2)
         return
-    print("just hit enter next time. you're being transferred to the advanced suite, which is not working well")
+    print("just hit enter next time. you're being transferred to the semi advanced suite, which is not working well")
     for i in range(repeats):
         pass
     return semi_advanced_suite(repeats)
@@ -29,16 +29,16 @@ def printmostcompact(x):
     for i in range(1, x):
         pix, min_side, params, area = getpix()
         params[-1] = i
-        print_folder = layout(pix, min_side, params, area)
-        total_area = print_folder[1][0] * print_folder[1][1]
+        print_complete = layout(pix, min_side, params, area)
+        total_area = print_complete[1][0] * print_complete[1][1]
         if total_area < min_area[0]:
-            min_area = [total_area, print_folder]
+            min_area = [total_area, print_complete]
     coll(min_area[1])
 
 
-def coll(print_folder):
-    collage = Image.new("RGB", print_folder[1], (255, 255, 255))
-    for name in print_folder[0]:
+def coll(print_complete):
+    collage = Image.new("RGB", print_complete[1], (255, 255, 255))
+    for name in print_complete[0]:
         collage.paste(Image.open(name[0]), (name[3], name[4]))
     collage.show()
     collage.save("coll"+str(int(time.time()))+".jpg",quality=99) 
@@ -59,6 +59,7 @@ def advanced_suite(repeats):
         "How much top border do you like? ",
         "How much side border do you like? ",
     )
+    print("This isn't working properly ATM")
     params = [0, 0, 0, 0]
     for rep in range(repeats):
         for i in range(len(displayed)):
@@ -67,8 +68,8 @@ def advanced_suite(repeats):
                 if rep != 0:
                     if text.lower() == "rs":
                         params[-1] += 1
-                        print_folder = layout(pix, min_side, params, area)
-                        coll(print_folder)
+                        print_complete = layout(pix.copy(), min_side, params, area)
+                        coll(print_complete)
                         break
                 continue
             while not isfloat(text) or float(text) < -5 or float(text) > 20:
@@ -78,8 +79,8 @@ def advanced_suite(repeats):
         if text.lower() == "rs":
             continue
         params[-1] = 0
-        print_folder = layout(pix, min_side, params, area)
-        coll(print_folder)
+        print_complete = layout(pix.copy(), min_side, params, area)
+        coll(print_complete)
         
 def semi_advanced_suite(repeats):
 
@@ -100,8 +101,8 @@ def semi_advanced_suite(repeats):
             
             params[i] = b
         
-        print_folder = layout(pix, min_side, params, area)
-        coll(print_folder)
+        print_complete = layout(pix, min_side, params, area)
+        coll(print_complete)
         
 def getpix():
     global path
@@ -163,10 +164,10 @@ def layout(pix, min_side, params, area):
         )
         if error == "n":
             quit()
-    print_folder = draw(
+    print_complete = draw(
         pix.copy(), orientation, sprawlingest[1], widest_tallest, params, min_side, area
     )
-    return print_folder
+    return print_complete
 
 
 # return final folder with printing coordinates for each pic
