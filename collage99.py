@@ -1,4 +1,4 @@
-path = "enter file path of jpeg folder"
+path = "/Users/mac/Documents/coll/"
 from PIL import Image
 import time
 import os
@@ -82,12 +82,6 @@ def advanced_suite(repeats):
         coll(print_folder)
         
 def semi_advanced_suite(repeats):
-    def isfloat(x):
-        try:
-            float(x)
-            return True
-        except ValueError:
-            return False
 
     pix, min_side, params, area = getpix()
     displayed = (
@@ -113,7 +107,7 @@ def getpix():
     global path
     pix = []
     area = 0
-    for i in os.listdir(ad):
+    for i in os.listdir(path):
         if i == ".DS_Store":
             continue
         img = Image.open(path + i)
